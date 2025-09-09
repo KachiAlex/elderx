@@ -1,0 +1,60 @@
+type User @table {
+  displayName: String!
+  userType: String!
+  createdAt: Timestamp!
+  email: String
+  photoUrl: String
+  dateOfBirth: Date
+}
+
+type ElderlyProfile @table {
+  user: User!
+  emergencyContactName: String!
+  emergencyContactPhone: String!
+  primaryCareDoctor: String
+  allergies: String
+  medicalConditions: String
+}
+
+type Medication @table {
+  elderlyProfile: ElderlyProfile!
+  name: String!
+  dosage: String!
+  frequency: String!
+  startTime: Timestamp!
+  instructions: String
+  notes: String
+  endDate: Date
+}
+
+type DoseLog @table {
+  medication: Medication!
+  takenAt: Timestamp!
+  status: String!
+  notes: String
+}
+
+type Appointment @table {
+  elderlyProfile: ElderlyProfile!
+  dateTime: Timestamp!
+  type: String!
+  location: String!
+  doctorName: String
+  notes: String
+}
+
+type VitalSign @table {
+  elderlyProfile: ElderlyProfile!
+  recordedAt: Timestamp!
+  type: String!
+  value: Float!
+  unit: String
+  notes: String
+}
+
+type CaregiverRelationship @table(key: ["caregiver", "elderlyProfile"]) {
+  caregiver: User!
+  elderlyProfile: ElderlyProfile!
+  establishedAt: Timestamp!
+  accessLevel: String
+}

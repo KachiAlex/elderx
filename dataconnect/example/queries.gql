@@ -1,0 +1,27 @@
+mutation AddNewVitalSign @auth(level: USER) {
+  vitalSign_insert(data: {elderlyProfileId_expr: "uuidV4()", type: "Blood Pressure", value: 120.0, recordedAt_expr: "request.time"})
+}
+
+query GetMyMedications @auth(level: USER) {
+  medications(where: {elderlyProfileId: {eq_expr: "auth.uid"}}) {
+    id
+    name
+    dosage
+    frequency
+  }
+}
+
+mutation UpdateMedicationNotes($id: UUID!, $notes: String) @auth(level: USER) {
+  medication_update(key: {id: $id}, data: {notes: $notes})
+}
+
+query ListCaregiversForElderlyProfile($elderlyProfileId: UUID!) @auth(level: USER) {
+  caregiverRelationships(where: {elderlyProfileId: {eq: $elderlyProfileId}}) {
+    caregiver {
+      id
+      displayName
+      email
+    }
+    accessLevel
+  }
+}
