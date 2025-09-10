@@ -1,9 +1,32 @@
 ﻿import React from "react";
 import { createRoot } from "react-dom/client";
+import { BrowserRouter } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ToastContainer } from "react-toastify";
+import App from "./App";
+import "react-toastify/dist/ReactToastify.css";
+import "./index.css";
 
-function App() {
-  return <div style={{padding:20,fontFamily:"Segoe UI"}}>ElderX app bootstrapped</div>;
-}
+const queryClient = new QueryClient();
 
 const root = createRoot(document.getElementById("root"));
-root.render(<App />);
+root.render(
+  <React.StrictMode>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <App />
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+        />
+      </BrowserRouter>
+    </QueryClientProvider>
+  </React.StrictMode>
+);
