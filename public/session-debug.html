@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Session Debug - ElderX</title>
+    <title>Session Debug - Care Master</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -87,7 +87,7 @@
 </head>
 <body>
     <div class="container">
-        <h1>🔧 ElderX Session Debug Tool</h1>
+        <h1>🔧 Care Master Session Debug Tool</h1>
         
         <div class="section">
             <h3>Current Session Status</h3>
@@ -123,10 +123,10 @@
     <script>
         function refreshSessionStatus() {
             const sessionInfo = {
-                role: sessionStorage.getItem('elderx_tab_role'),
-                userId: sessionStorage.getItem('elderx_tab_user_id'),
-                institutionId: sessionStorage.getItem('elderx_tab_institution'),
-                bypassEnabled: sessionStorage.getItem('elderx_bypass_session_validation') === 'true'
+                role: sessionStorage.getItem('Care Master_tab_role'),
+                userId: sessionStorage.getItem('Care Master_tab_user_id'),
+                institutionId: sessionStorage.getItem('Care Master_tab_institution'),
+                bypassEnabled: sessionStorage.getItem('Care Master_bypass_session_validation') === 'true'
             };
 
             const statusDiv = document.getElementById('sessionStatus');
@@ -153,13 +153,13 @@
         }
 
         function enableBypass() {
-            sessionStorage.setItem('elderx_bypass_session_validation', 'true');
+            sessionStorage.setItem('Care Master_bypass_session_validation', 'true');
             alert('✅ Session validation bypass enabled!\n\nThis will prevent multi-tab conflicts. You can now navigate freely.');
             refreshSessionStatus();
         }
 
         function disableBypass() {
-            sessionStorage.removeItem('elderx_bypass_session_validation');
+            sessionStorage.removeItem('Care Master_bypass_session_validation');
             alert('🔧 Session validation bypass disabled.\n\nNormal session validation is now active.');
             refreshSessionStatus();
         }
@@ -169,7 +169,7 @@
                 // Clear all session storage
                 const keys = Object.keys(sessionStorage);
                 keys.forEach(key => {
-                    if (key.startsWith('elderx_')) {
+                    if (key.startsWith('Care Master_')) {
                         sessionStorage.removeItem(key);
                     }
                 });
@@ -183,7 +183,7 @@
         }
 
         function goToDashboard(role) {
-            const institutionId = sessionStorage.getItem('elderx_tab_institution');
+            const institutionId = sessionStorage.getItem('Care Master_tab_institution');
             const institutionParam = institutionId ? `?institution=${institutionId}` : '';
             
             let path = '';
